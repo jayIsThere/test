@@ -1,0 +1,36 @@
+name: Jekyll Build and Deploy
+
+on:
+  push:
+    branches:
+      - main  # main 브랜치에 푸시될 때마다 빌드를 실행합니다.
+  pull_request:
+    branches:
+      - main  # main 브랜치로의 풀 리퀘스트에 대해서도 빌드를 실행합니다.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'  # 사용하려는 Ruby 버전 설정
+
+    - name: Install dependencies
+      run: |
+        gem install bundler -v 2.6.8  # bundler 설치
+        bundle install  # Gemfile에 정의된 의존성 설치
+
+    - name: Build the site
+      run: |
+        bundle exec jekyll build  # Jekyll 사이트 빌드
+
+    - name: Deploy the site (Optional, if you want to deploy automatically)
+      run: |
+        # 원하는 배포 방법을 여기에 작성 (예: GitHub Pages로 배포)
+        bundle exec jekyll serve --host 0.0.0.0 --port 4000 --destination ./_site
