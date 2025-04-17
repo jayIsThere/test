@@ -1,35 +1,22 @@
 source "https://rubygems.org"
-# Hello! This is where you manage which Jekyll version is used to run.
-# When you want to use a different version, change it below, save the
-# file and run `bundle install`. Run Jekyll with `bundle exec`, like so:
-#
-#     bundle exec jekyll serve
-#
-# This will help ensure the proper Jekyll version is running.
-# Happy Jekylling!
+
+# 사용하려는 Jekyll 버전 지정
 gem "jekyll", "~> 3.10.0"
-# This is the default theme for new Jekyll sites. You may change this to anything you like.
-# gem "minima", "~> 2.5"
-# If you want to use GitHub Pages, remove the "gem "jekyll"" above and
-# uncomment the line below. To upgrade, run `bundle update github-pages`.
 gem "github-pages", group: :jekyll_plugins
-# If you have any plugins, put them here!
+
+# Jekyll 플러그인
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
 end
 
+# Windows 및 JRuby 환경에서 tzinfo 및 tzinfo-data 설치
+gem "tzinfo", "~> 1.2"
+gem "tzinfo-data", "~> 1.2" if RUBY_PLATFORM =~ %r!mingw|mswin|java!
 
-
-# Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
-# and associated library.
-install_if -> { RUBY_PLATFORM =~ %r!mingw|mswin|java! } do
-  gem "tzinfo", "~> 1.2"
-  gem "tzinfo-data"
-end
-
-# Performance-booster for watching directories on Windows
+# 윈도우 환경에서 디렉토리 감시 성능 향상
 gem "wdm", "~> 0.1.1", :install_if => Gem.win_platform?
 
+# 추가적인 gem들
 gem "csv", "~> 3.3.4"
 gem "i18n", "~> 1.14.7"
 gem "webrick", "~> 1.9.1"
